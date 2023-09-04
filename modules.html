@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<style>
+    input.ng-invalid {
+        border: 1px solid red;
+    }
+</style>
+
+<body ng-app="myApp" name="demo" ng-controller="myCtrl">
+    <hr />
+    <h1 class="text-center">ng init and ng module demo</h1>
+    <input type="number" ng-model="dev1" ng-init="dev1=10" />
+    <input type="number" name="dev2" id="dev2" ng-model="dev2" />
+    <input type="number" name="dev3" id="dev3" ng-model="dev3" />
+    total devloper Cost:{{dev1+dev2+dev3}}
+    <hr />
+    <h1 class="text-center">ng repeat demo</h1>
+    <ul ng-init="d=[1,2,3,54,5]">
+        <li ng-repeat="item in d">{{item}}</li>
+    </ul>
+    <hr />
+    <!-- <div class="text-center" custom></div> -->
+    <custom class="text-center"></custom>
+    <hr />
+    <!-- validators demo -->
+    <h1 class="text-center">ng model with validations</h1>
+    <form ng-app="" name="myForm">
+        <input type="email" class="form-control" ng-model="string" name="string" required />
+        <small ng-show="myForm.string.$error.email" class="text-center text-danger">invlaid email</small>
+    </form>
+    <hr />
+    <!-- calling method from ctrl -->
+    <h1>Ctrl method Demo</h1>
+    <h5>{{hello()}}</h5>
+    <hr />
+
+    <!--retriving stored data from ctrl  -->
+    <h5 class="text-center my-1">Object in ctrl</h5>
+    <div class="table-responsive">
+        <table class="table table-primary">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Proffesion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in objresult">
+                    <td scope="row">{{item.name}}</td>
+                    <td>{{item.proffesion|uppercase}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr />
+
+    <!-- search with model binding -->
+    <input type="text" ng-model="name" />
+
+    <!-- ng select demo -->
+    <select ng-model="name" ng-options="x for x  in getname()"></select>
+
+    <!-- <div class="mb-3" >
+        <label for="name" class="form-label">Name</label>
+        <select  ng-model="name">
+            <option ng-repeat="item in getname()" value="{{item}}">{{item}}</option>
+            <option value="hi">hi</option>
+        </select>
+    </div> -->
+
+    <!-- table demo with ng repeat -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-borderless table-primary align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>name</th>
+                    <th>email</th>
+                    <th>gender</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr class="table-primary" ng-repeat="item in users|filter:name">
+                    <td scope="row">{{item.name}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.gender}}</td>
+                    <td>{{item.status}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr />
+    <div class="form-check">
+        <input class="form-check-input" ng-model="check" type="checkbox" value="" id="" />
+        <label class="form-check-label" for="btn"> Disable Button </label>
+    </div>
+    <h3 ng-show="check">this will hide if checkbox is unchecked</h3>
+    <button type="button" ng-disabled="check" class="btn btn-outline-primary">
+        Button
+    </button>
+    <h5 ng-show="visible">Visiblity</h5>
+    <button type="button" class="btn btn-outline-info" ng-click="clk()">
+        Clear
+    </button>
+    <hr />
+    <h1 class="text-center bg-info-subtle text-white">user Form</h1>
+
+    <form>
+        <div class="mb-3">
+          <label for="" class="form-label">Name</label>
+          <input type="text"
+            class="form-control" ng-model="userform.name"aria-describedby="helpId" placeholder="">
+          <small id="helpId" class="form-text text-muted">Help text</small>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Email</label>
+            <input type="email" class="form-control" ng-model="userform.email" aria-describedby="emailHelpId"
+                placeholder="abc@mail.com" />
+            <small id="emailHelpId" class="form-text text-muted">Help text</small>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" ng-model="userform.status" type="radio" name="status" id="active" value="active"  />
+            <label class="form-check-label" for="active"> active </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" ng-model="userform.status" type="radio" name="status" id="inactive"
+                checked value="inactive" />
+            <label class="form-check-label" for="inactive"> Inactve </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" ng-model="userform.gender" type="radio" name="gender" id="male" value="male" />
+            <label class="form-check-label" for="male"> male </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" ng-model="userform.gender" type="radio" name="gender" id="female" checked value="female" />
+            <label class="form-check-label" for="female"> female </label>
+        </div>
+    </form>
+    <p>{{userform}}</p>
+    <script src="app.js"></script>
+    <script src="controllar.js"></script>
+    <script src="directive.js"></script>
+    <script src="filter.js"></script>
+</body>
+
+</html>
